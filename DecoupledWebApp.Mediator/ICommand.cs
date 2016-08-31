@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DecoupledWebApp.Domain.Queries
+namespace DecoupledWebApp.Mediation
 {
-    public interface IQuery { }
+    public interface ICommand
+    {
+    }
 }

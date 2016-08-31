@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DecoupledWebApp.Domain.Queries;
 using DecoupledWebApp.Domain.Models;
-using DecoupledWebApp.Mediation.Queries;
+using DecoupledWebApp.Mediation;
 
 namespace DecoupledWebApp.DAL.Queries
 {

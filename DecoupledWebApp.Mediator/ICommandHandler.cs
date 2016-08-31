@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DecoupledWebApp.Domain.Commands;
 
-namespace DecoupledWebApp.Mediation.Commands
+namespace DecoupledWebApp.Mediation
 {
     public interface ICommandHandler
     {

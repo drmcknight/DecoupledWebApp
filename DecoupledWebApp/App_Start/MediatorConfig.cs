@@ -12,6 +12,8 @@ namespace DecoupledWebApp
         {
             Mediator.Register(typeof(GetUserByNameQuery), new GetUserByNameQueryHandler());
             Mediator.Register(typeof(GetBookByTitleQuery), new GetBookByTitleQueryHandler());
+            
+            Mediator.Register(typeof(CheckOutBookCommand), new CheckOutBookCommandHandler());
             Mediator.Register(typeof(CheckOutBookCommand), new CheckOutBookCommandHandler());
         }
     }

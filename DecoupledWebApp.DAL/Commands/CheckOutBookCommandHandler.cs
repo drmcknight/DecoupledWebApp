@@ -1,7 +1,6 @@
 ﻿using DecoupledWebApp.Domain.Commands;
 using DecoupledWebApp.Domain.Queries;
 using DecoupledWebApp.Domain.Models;
-using DecoupledWebApp.Mediation.Commands;
 using DecoupledWebApp.Mediation;
 using System;
 using System.Collections.Generic;

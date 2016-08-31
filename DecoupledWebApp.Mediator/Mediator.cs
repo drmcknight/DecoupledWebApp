@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DecoupledWebApp.Mediation.Queries;
-using DecoupledWebApp.Mediation.Commands;
-using DecoupledWebApp.Domain.Queries;
-using DecoupledWebApp.Domain.Commands;
+using DecoupledWebApp.Mediation;
+
 
 namespace DecoupledWebApp.Mediation
 {
     public static class Mediator
     {
         internal static Dictionary<string, IQueryHandler> Queries = new Dictionary<string, IQueryHandler>();
-        internal static Dictionary<string, ICommandHandler> Commands = new Dictionary<string, ICommandHandler>();
+        internal static Dictionary<string, IEnumerable<ICommandHandler>> Commands = new Dictionary<string, IEnumerable<ICommandHandler>>();
 
         /// <summary>
         /// Binds a QueryHandler to a Query
@@ -54,10 +52,18 @@ namespace DecoupledWebApp.Mediation
 
             if (Commands.ContainsKey(commandName))
             {
-                throw new NotSupportedException(string.Format("A handler has already been registered for {0}.", commandName));
-            }
+                var existingHandlers = (List<ICommandHandler>)Commands.First(x => x.Key == commandName).Value.ToList();
+                
+                existingHandlers.Add(handler);
 
-            Commands.Add(commandName, handler);
+                Commands.Remove(commandName);
+
+                Commands.Add(commandName, existingHandlers);
+            }
+            else
+            {
+                Commands.Add(commandName, new[] { handler });
+            }
         }
 
         /// <summary>
@@ -72,22 +78,33 @@ namespace DecoupledWebApp.Mediation
             {
                 throw new NullReferenceException(string.Format("No handler has been registered for {0}", commandName));
             }
-            
-            var handler = Commands[commandName];
 
-            if (handler.UserCanPerformCommand())
+            var handlers = Commands[commandName];
+            return ExecuteCommand(command, handlers);
+        }
+
+        private static CommandResult ExecuteCommand(ICommand command, IEnumerable<ICommandHandler> handlers)
+        {
+            try
             {
-                try
+                foreach (var handler in handlers)
                 {
-                    return handler.Handle(command);
-                }
-                catch (Exception ex)
-                {
-                    return new CommandResult { Status = CommandStatus.Failed, Message = ex.ToString() };
+                    if (handler.UserCanPerformCommand())
+                    {
+                        handler.Handle(command);
+                    }
+                    else
+                    {
+                        return new CommandResult { Status = CommandStatus.Forbidden };
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                return new CommandResult { Status = CommandStatus.Failed, Message = ex.ToString() };
+            }
 
-            return new CommandResult { Status = CommandStatus.Forbidden };
+            return new CommandResult { Status = CommandStatus.Succeeded };
         }
     }
 

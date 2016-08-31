@@ -40,16 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandResult.cs" />
+    <Compile Include="ICommand.cs" />
     <Compile Include="ICommandHandler.cs" />
+    <Compile Include="IQuery.cs" />
     <Compile Include="IQueryHandler.cs" />
     <Compile Include="Mediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DecoupledWebApp.Domain\DecoupledWebApp.Domain.csproj">
-      <Project>{69cf3b09-4f5f-4f80-84bf-3fcb39d937ae}</Project>
-      <Name>DecoupledWebApp.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
