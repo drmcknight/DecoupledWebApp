@@ -13,7 +13,7 @@ namespace DecoupledWebApp.DAL.Commands
 {
     public class CheckOutBookCommandHandler : ICommandHandler
     {
-        public CommandResult Handle(ICommand command)
+        public void Handle(ICommand command)
         {
             var cmd = (CheckOutBookCommand)command;
 
@@ -21,7 +21,6 @@ namespace DecoupledWebApp.DAL.Commands
 
             var checkedOutBook = new Book { Title = cmd.BookTitle, CurrentOwner = user };
             // save checked out book
-            return new CommandResult { Status = CommandStatus.Succeeded };
         }
 
         public bool UserCanPerformCommand()

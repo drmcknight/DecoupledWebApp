@@ -8,7 +8,7 @@ namespace DecoupledWebApp.Mediation
 {
     public interface ICommandHandler
     {
-        CommandResult Handle(ICommand command);
+        void Handle(ICommand command);
         bool UserCanPerformCommand();
     }
 }
