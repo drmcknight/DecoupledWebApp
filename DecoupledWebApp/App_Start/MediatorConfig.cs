@@ -1,20 +1,25 @@
-﻿using DecoupledWebApp.Domain.Queries;
-using DecoupledWebApp.Domain.Commands;
-using DecoupledWebApp.DAL.Queries;
-using DecoupledWebApp.DAL.Commands;
-using DecoupledWebApp.Mediation;
+﻿using DecoupledWebApp.Mediation;
+using DecoupledWebApp.DAL.Users.Queries;
+using DecoupledWebApp.DAL.Books.Queries;
+using DecoupledWebApp.DAL.Books.Commands;
+using DecoupledWebApp.Domain.Users.Queries;
+using DecoupledWebApp.Domain.Books.Queries;
+using DecoupledWebApp.Domain.Queries.Books.Queries;
+using DecoupledWebApp.Domain.Books.Commands;
 
 namespace DecoupledWebApp
 {
     public class MediatorConfig
     {
-        public static void Register()
+        public static void Register(IMediator mediator)
         {
-            Mediator.Register(typeof(GetUserByNameQuery), new GetUserByNameQueryHandler());
-            Mediator.Register(typeof(GetBookByTitleQuery), new GetBookByTitleQueryHandler());
-            
-            Mediator.Register(typeof(CheckOutBookCommand), new CheckOutBookCommandHandler());
-            Mediator.Register(typeof(CheckOutBookCommand), new CheckOutBookCommandHandler());
+            mediator.Queries.Bind<GetUserByNameQuery, GetUserByNameQueryHandler>();
+            mediator.Queries.Bind<GetBookByTitleQuery, GetBookByTitleQueryHandler>();
+            mediator.Queries.Bind<GetAllUsersQuery, GetAllUsersQueryHandler>();
+            mediator.Queries.Bind<IsBookCheckedOutByUserQuery, IsBookCheckedOutByUserQueryHandler>();
+
+            mediator.Commands.Bind<CheckOutBookCommand, CheckOutBookCommandHandler>();
+            mediator.Commands.Bind<CheckOutBookCommand, CheckOutBookCommandHandler>();
         }
     }
 }

@@ -39,10 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CheckOutBookCommandHandler.cs" />
+    <Compile Include="Books\Commands\CheckOutBookCommandHandler.cs" />
+    <Compile Include="Books\Commands\ReturnBookCommandHandler.cs" />
+    <Compile Include="Books\Queries\IsBookCheckedOutByUserQueryHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\GetBookByTitleQueryHandler.cs" />
-    <Compile Include="Queries\GetUserByNameQueryHandler.cs" />
+    <Compile Include="Books\Queries\GetBookByTitleQueryHandler.cs" />
+    <Compile Include="Users\Queries\GetAllUsersQueryHandler.cs" />
+    <Compile Include="Users\Queries\GetUserByNameQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DecoupledWebApp.Domain\DecoupledWebApp.Domain.csproj">

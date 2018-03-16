@@ -1,7 +1,18 @@
-﻿
+﻿@model IndexViewModel
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
+@ViewBag.Message
+<ul>
+    @{
+        foreach (var user in Model.Users)
+        {
+            <li>
+                @user.Name
+            </li>
+        }
+    }
+</ul>
